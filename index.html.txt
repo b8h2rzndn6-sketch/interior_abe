@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>株式会社サンプル内装 | 内装リフォーム</title>
+<meta name="description" content="キッチン・浴室・クロス張替え・間取り変更まで、暮らしに寄り添う内装リフォーム会社です。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FAFAF8;
+    --bg-panel: #F2F1ED;
+    --bg-panel-dark: #E9E7E1;
+    --ink: #1C1B19;
+    --ink-soft: #57554F;
+    --ink-faint: #8C8A82;
+    --line: #D9D7D0;
+    --line-strong: #B7B4AA;
+    --max-width: 1160px;
+    --font-display: 'Shippori Mincho', serif;
+    --font-body: 'Noto Sans JP', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    font-family: var(--font-body);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.85;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color: inherit; text-decoration: none; }
+  ul{ list-style:none; }
+  h1,h2,h3,h4{ font-family: var(--font-display); font-weight: 700; letter-spacing: .02em; }
+
+  :focus-visible{
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+
+  .wrap{ max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: .18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .eyebrow::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background: var(--line);
+  }
+  .section{ padding: 110px 0; border-bottom: 1px solid var(--line); }
+  .section--tight{ padding: 90px 0; }
+  .section-head{ max-width: 640px; margin-bottom: 56px; }
+  .section-head h2{ font-size: clamp(26px, 3.2vw, 36px); margin-bottom: 18px; }
+  .section-head p{ color: var(--ink-soft); }
+
+  /* signature element: registration-mark corners, like an architectural drawing crop mark */
+  .frame{ position: relative; }
+  .frame::before, .frame::after{
+    content:"";
+    position:absolute;
+    width:16px; height:16px;
+    pointer-events:none;
+  }
+  .frame::before{ top:-1px; left:-1px; border-top:1.5px solid var(--ink); border-left:1.5px solid var(--ink); }
+  .frame::after{ bottom:-1px; right:-1px; border-bottom:1.5px solid var(--ink); border-right:1.5px solid var(--ink); }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing:.08em;
+    padding: 15px 28px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--bg);
+    cursor:pointer;
+    transition: background .25s ease, color .25s ease;
+  }
+  .btn:hover{ background: var(--bg); color: var(--ink); }
+  .btn--ghost{ background: transparent; color: var(--ink); }
+  .btn--ghost:hover{ background: var(--ink); color: var(--bg); }
+
+  /* header */
+  header{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(250,250,248,.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    max-width: var(--max-width); margin:0 auto; padding: 18px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{ font-family: var(--font-display); font-size: 19px; letter-spacing:.04em; }
+  .logo span{ display:block; font-family: var(--font-mono); font-size: 10px; letter-spacing:.18em; color: var(--ink-faint); margin-top:2px; }
+  .nav-links{ display:flex; gap: 36px; font-size: 14px; }
+  .nav-links a{ position:relative; padding-bottom:4px; }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:1px; background: var(--ink);
+    transition: width .25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{ display:flex; align-items:center; gap: 22px; }
+  .hamburger{ display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px; }
+  .hamburger span{ width:22px; height:1.5px; background:var(--ink); display:block; }
+
+  @media (max-width: 860px){
+    .nav-links{
+      position:fixed; inset: 65px 0 0 0; background: var(--bg);
+      flex-direction:column; padding: 40px 28px; gap: 28px; font-size: 16px;
+      transform: translateY(-110%); transition: transform .3s ease; border-top:1px solid var(--line);
+    }
+    .nav-links.open{ transform: translateY(0); }
+    .hamburger{ display:flex; }
+    .nav-cta .btn{ display:none; }
+  }
+
+  /* hero */
+  .hero{ position:relative; overflow:hidden; padding: 120px 0 100px; border-bottom: 1px solid var(--line); }
+  .hero__grid{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 42px 42px;
+    opacity:.5;
+    mask-image: linear-gradient(to bottom, black 0%, transparent 88%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 88%);
+  }
+  .hero__inner{ position:relative; display:grid; grid-template-columns: 1.1fr .9fr; gap: 60px; align-items:end; }
+  .hero h1{ font-size: clamp(34px, 5vw, 58px); line-height:1.4; margin-bottom: 26px; }
+  .hero p{ color: var(--ink-soft); max-width: 440px; margin-bottom: 40px; }
+  .hero__cta{ display:flex; gap:16px; flex-wrap:wrap; }
+  .hero__visual{
+    aspect-ratio: 4/5; background: var(--bg-panel);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .hero__visual svg{ width:62%; }
+
+  @media (max-width: 860px){
+    .hero__inner{ grid-template-columns: 1fr; }
+    .hero__visual{ order:-1; aspect-ratio: 16/9; }
+  }
+
+  /* about */
+  .about__grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 70px; }
+  .about__lead{ font-size: 18px; color: var(--ink); margin-bottom: 22px; }
+  .about__body{ color: var(--ink-soft); }
+  .facts{ display:grid; grid-template-columns: repeat(2,1fr); gap: 1px; background: var(--line); border:1px solid var(--line); }
+  .fact{ background: var(--bg); padding: 26px 22px; }
+  .fact b{ font-family: var(--font-mono); font-size: 30px; display:block; margin-bottom: 6px; }
+  .fact span{ font-size: 13px; color: var(--ink-faint); }
+
+  @media (max-width: 860px){ .about__grid{ grid-template-columns: 1fr; gap:40px; } }
+
+  /* services */
+  .services{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border:1px solid var(--line); }
+  .service{ background: var(--bg); padding: 36px 30px; }
+  .service .frame::before, .service .frame::after{ display:none; }
+  .service-icon{ width:34px; height:34px; margin-bottom:22px; }
+  .service h3{ font-size: 17px; margin-bottom: 10px; }
+  .service p{ font-size: 14px; color: var(--ink-soft); }
+
+  @media (max-width: 860px){ .services{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px){ .services{ grid-template-columns: 1fr; } }
+
+  /* pricing */
+  .price-table{ width:100%; border-collapse: collapse; font-size:15px; }
+  .price-table thead th{
+    font-family: var(--font-mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color: var(--ink-faint); text-align:left; padding: 0 18px 16px; font-weight:400; border-bottom:1px solid var(--ink);
+  }
+  .price-table tbody td{ padding: 20px 18px; border-bottom:1px solid var(--line); vertical-align:top; }
+  .price-table tbody tr:hover{ background: var(--bg-panel); }
+  .price-table td.num{ font-family: var(--font-mono); white-space:nowrap; }
+  .price-note{ margin-top: 22px; font-size: 13px; color: var(--ink-faint); }
+
+  @media (max-width: 700px){
+    .price-table thead{ display:none; }
+    .price-table, .price-table tbody, .price-table tr, .price-table td{ display:block; width:100%; }
+    .price-table tr{ padding: 18px 0; border-bottom:1px solid var(--line); }
+    .price-table td{ border:none; padding: 4px 0; }
+    .price-table td::before{ content: attr(data-label); display:block; font-family: var(--font-mono); font-size:11px; color:var(--ink-faint); margin-bottom:2px; }
+  }
+
+  /* works */
+  .works{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 40px 30px; }
+  .work-card .photo{
+    aspect-ratio: 4/3; border: 1px dashed var(--line-strong); background: var(--bg-panel);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+    color: var(--ink-faint); margin-bottom: 18px; text-align:center; padding: 20px;
+  }
+  .photo .ph-label{ font-family: var(--font-mono); font-size:11px; letter-spacing:.12em; }
+  .photo .ph-sub{ font-size:12px; }
+  .work-card h3{ font-size:16px; margin-bottom:6px; }
+  .work-tag{ font-family: var(--font-mono); font-size:12px; color: var(--ink-faint); }
+
+  @media (max-width: 700px){ .works{ grid-template-columns: 1fr; } }
+
+  /* contact */
+  .contact__grid{ display:grid; grid-template-columns: .85fr 1.15fr; gap: 60px; }
+  .contact-info dl{ display:grid; grid-template-columns: 96px 1fr; gap: 16px 14px; font-size:14px; margin-bottom:36px; }
+  .contact-info dt{ font-family: var(--font-mono); color: var(--ink-faint); font-size:12px; padding-top:2px; }
+  .contact-info dd{ color: var(--ink-soft); }
+  .field{ margin-bottom: 22px; }
+  .field label{ display:block; font-size:13px; color: var(--ink-soft); margin-bottom:8px; }
+  .field input, .field textarea{
+    width:100%; border:1px solid var(--line-strong); background: var(--bg);
+    padding: 13px 14px; font-family: var(--font-body); font-size:14px; color: var(--ink);
+  }
+  .field textarea{ resize: vertical; min-height: 120px; }
+  .field input:focus, .field textarea:focus{ outline:none; border-color: var(--ink); }
+  .form-note{ font-size:12px; color: var(--ink-faint); margin-top: 14px; }
+
+  @media (max-width: 860px){ .contact__grid{ grid-template-columns:1fr; gap:50px; } }
+
+  footer{ padding: 50px 0; }
+  .footer__inner{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
+  .footer__nav{ display:flex; gap:24px; font-size:13px; color: var(--ink-soft); flex-wrap:wrap; }
+  .footer__copy{ font-family: var(--font-mono); font-size:12px; color: var(--ink-faint); }
+
+  .reveal{ opacity:0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.is-visible{ opacity:1; transform:none; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#home" class="logo">株式会社サンプル内装<span>INTERIOR RENOVATION</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">会社概要</a>
+      <a href="#services">サービス</a>
+      <a href="#pricing">参考料金</a>
+      <a href="#works">施工事例</a>
+      <a href="#contact">お問い合わせ</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#contact" class="btn">無料相談</a>
+      <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="home">
+    <div class="hero__grid" aria-hidden="true"></div>
+    <div class="wrap hero__inner">
+      <div>
+        <div class="eyebrow">SINCE [創業年] — INTERIOR RENOVATION</div>
+        <h1>図面から、<br>暮らしへ。</h1>
+        <p>間取りの変更からクロスの張替えまで、住まいの「困った」と「こうしたい」を、採寸から仕上げまで一貫してお手伝いします。</p>
+        <div class="hero__cta">
+          <a href="#contact" class="btn">無料相談を申し込む</a>
+          <a href="#works" class="btn btn--ghost">施工事例を見る</a>
+        </div>
+      </div>
+      <div class="hero__visual frame">
+        <svg viewBox="0 0 200 240" fill="none" stroke="#1C1B19" stroke-width="1">
+          <rect x="20" y="20" width="160" height="200"/>
+          <line x1="20" y1="90" x2="180" y2="90"/>
+          <line x1="100" y1="90" x2="100" y2="220"/>
+          <rect x="36" y="36" width="44" height="34"/>
+          <line x1="60" y1="120" x2="60" y2="200" stroke-dasharray="3 3"/>
+          <line x1="130" y1="105" x2="165" y2="105"/>
+          <circle cx="150" cy="160" r="14"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="eyebrow">ABOUT</div>
+      <div class="about__grid">
+        <div class="reveal">
+          <p class="about__lead">「直してほしい場所」だけでなく、「この先の暮らし」まで考えて図面を引きます。</p>
+          <p class="about__body">
+            私たちは内装リフォームを専門に、キッチンや浴室といった水まわりから、クロス・床材の張替え、間取りの変更まで手がけています。
+            現地調査では実際の寸法を一つひとつ確認し、図面と見積りに落とし込んだうえでご提案するため、着工後の「想定外」を最小限に抑えます。
+            職人による施工はすべて自社管理。仕上がりの精度と、工事中の丁寧な対応の両方にこだわっています。
+          </p>
+        </div>
+        <div class="facts reveal">
+          <div class="fact"><b>[15]</b><span>創業からの年数</span></div>
+          <div class="fact"><b>[320+]</b><span>施工実績件数</span></div>
+          <div class="fact"><b>[○○県]</b><span>対応エリア</span></div>
+          <div class="fact"><b>[10]</b><span>最長保証年数</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" id="services">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">SERVICE</div>
+        <h2>対応できるリフォーム</h2>
+        <p>小規模な張替えから間取り変更を伴う大規模工事まで、内容に応じて職人を手配します。</p>
+      </div>
+      <div class="services reveal">
+        <div class="service">
+          <h3>キッチンリフォーム</h3>
+          <p>使い勝手やコンロ・収納の配置から見直し、対面型への変更にも対応します。</p>
+        </div>
+        <div class="service">
+          <h3>浴室・洗面リフォーム</h3>
+          <p>ユニットバスの交換から、断熱・乾燥機能の追加までご相談いただけます。</p>
+        </div>
+        <div class="service">
+          <h3>内装・クロス張替え</h3>
+          <p>壁紙・天井クロスの張替えで、部屋の印象を短期間で一新します。</p>
+        </div>
+        <div class="service">
+          <h3>フローリング・床材</h3>
+          <p>傷みや段差の解消から、ペット対応・遮音性の高い床材への変更まで。</p>
+        </div>
+        <div class="service">
+          <h3>間取り変更・増改築</h3>
+          <p>壁の撤去や部屋の連結など、構造を確認しながら暮らしに合わせて変更します。</p>
+        </div>
+        <div class="service">
+          <h3>店舗・オフィス内装</h3>
+          <p>テナントの原状回復から、開業に向けた内装工事まで対応します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">PRICE</div>
+        <h2>参考料金</h2>
+        <p>建物の状態や使用する建材によって変動します。正式な金額は現地調査後にお見積りいたします。</p>
+      </div>
+      <div class="frame reveal">
+        <table class="price-table">
+          <thead>
+            <tr><th>工事内容</th><th>参考価格</th><th>工期目安</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="工事内容">キッチンリフォーム</td>
+              <td data-label="参考価格" class="num">80万円 〜 200万円</td>
+              <td data-label="工期目安">3〜7日</td>
+            </tr>
+            <tr>
+              <td data-label="工事内容">浴室・洗面リフォーム</td>
+              <td data-label="参考価格" class="num">60万円 〜 150万円</td>
+              <td data-label="工期目安">3〜5日</td>
+            </tr>
+            <tr>
+              <td data-label="工事内容">クロス張替え（6畳目安）</td>
+              <td data-label="参考価格" class="num">3万円 〜 8万円</td>
+              <td data-label="工期目安">1日</td>
+            </tr>
+            <tr>
+              <td data-label="工事内容">フローリング張替え（6畳目安）</td>
+              <td data-label="参考価格" class="num">8万円 〜 20万円</td>
+              <td data-label="工期目安">2〜3日</td>
+            </tr>
+            <tr>
+              <td data-label="工事内容">間取り変更</td>
+              <td data-label="参考価格" class="num">100万円 〜 400万円</td>
+              <td data-label="工期目安">2〜4週間</td>
+            </tr>
+            <tr>
+              <td data-label="工事内容">店舗・オフィス内装</td>
+              <td data-label="参考価格" class="num">50万円 〜 / 坪</td>
+              <td data-label="工期目安">規模による</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="price-note">※上記は目安です。建物の状況・選択する建材により変動します。詳細は現地調査の上、お見積りいたします。</p>
+    </div>
+  </section>
+
+  <section class="section section--tight" id="works">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">WORKS</div>
+        <h2>施工事例</h2>
+        <p>過去の施工事例を掲載予定です。写真を準備いただければ、下記の枠に差し替えます。</p>
+      </div>
+      <div class="works reveal">
+        <div class="work-card">
+          <div class="photo frame">
+            <span class="ph-label">PHOTO</span>
+            <span class="ph-sub">施工事例の写真をここに追加</span>
+          </div>
+          <h3>[○○邸] キッチンリフォーム</h3>
+          <span class="work-tag">キッチン / 工期5日</span>
+        </div>
+        <div class="work-card">
+          <div class="photo frame">
+            <span class="ph-label">PHOTO</span>
+            <span class="ph-sub">施工事例の写真をここに追加</span>
+          </div>
+          <h3>[○○邸] 浴室リフォーム</h3>
+          <span class="work-tag">浴室・洗面 / 工期4日</span>
+        </div>
+        <div class="work-card">
+          <div class="photo frame">
+            <span class="ph-label">PHOTO</span>
+            <span class="ph-sub">施工事例の写真をここに追加</span>
+          </div>
+          <h3>[○○邸] LDKフルリフォーム</h3>
+          <span class="work-tag">間取り変更 / 工期3週間</span>
+        </div>
+        <div class="work-card">
+          <div class="photo frame">
+            <span class="ph-label">PHOTO</span>
+            <span class="ph-sub">施工事例の写真をここに追加</span>
+          </div>
+          <h3>[○○店] 店舗内装</h3>
+          <span class="work-tag">店舗内装 / 工期10日</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact" style="border-bottom:none;">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">CONTACT</div>
+        <h2>お問い合わせ</h2>
+        <p>お見積り・現地調査のご依頼は無料です。お気軽にご連絡ください。</p>
+      </div>
+      <div class="contact__grid reveal">
+        <div class="contact-info">
+          <dl>
+            <dt>電話</dt><dd>00-0000-0000（平日 9:00〜18:00）</dd>
+            <dt>メール</dt><dd>info@example.com</dd>
+            <dt>住所</dt><dd>〒000-0000<br>○○県○○市○○ 0-0-0</dd>
+            <dt>定休日</dt><dd>日曜・祝日</dd>
+          </dl>
+          <a href="tel:0000000000" class="btn btn--ghost">電話で問い合わせる</a>
+        </div>
+        <form id="contactForm">
+          <div class="field">
+            <label for="name">お名前</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="field">
+            <label for="tel">電話番号</label>
+            <input type="tel" id="tel" name="tel">
+          </div>
+          <div class="field">
+            <label for="email">メールアドレス</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="field">
+            <label for="message">ご相談内容</label>
+            <textarea id="message" name="message" placeholder="リフォームをご検討の箇所や、ご希望の内容をご記入ください。"></textarea>
+          </div>
+          <button type="submit" class="btn">メールで送信する</button>
+          <p class="form-note">送信ボタンを押すと、入力内容を差し込んだ状態でお使いのメールアプリが開きます。</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer__inner">
+    <div class="footer__nav">
+      <a href="#about">会社概要</a>
+      <a href="#services">サービス</a>
+      <a href="#pricing">参考料金</a>
+      <a href="#works">施工事例</a>
+      <a href="#contact">お問い合わせ</a>
+    </div>
+    <div class="footer__copy">&copy; <span id="year"></span> 株式会社サンプル内装</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => io.observe(el));
+
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const tel = document.getElementById('tel').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    const body = `お名前: ${name}\n電話番号: ${tel}\nメールアドレス: ${email}\n\nご相談内容:\n${message}`;
+    window.location.href = `mailto:info@example.com?subject=${encodeURIComponent('リフォームのご相談')}&body=${encodeURIComponent(body)}`;
+  });
+</script>
+
+</body>
+</html>
